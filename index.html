@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSI Team | หาเพื่อนทำโปรเจกต์</title>
+  <link rel="stylesheet" href="Main.css">
+  <script src="Main.js" defer></script>
+</head>
+<body>
+  <header class="header">
+    <div class="container header-inner">
+      <a class="logo" href="#projects">หาเพื่อนทำ Project</a>
+
+      <!-- data-page ใช้บอก JavaScript ว่าต้องเปิดหน้าไหน -->
+      <nav aria-label="เมนูหลัก">
+        <button type="button" data-page="projects" class="active">
+          หาโปรเจกต์
+        </button>
+        <button type="button" data-page="create">สร้างประกาศ</button>
+        <button type="button" data-page="requests">คำขอของฉัน</button>
+        <button type="button" data-page="manage">Admin</button>
+        <button type="button" data-page="profile">โปรไฟล์</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <p class="demo-note">
+      Test version 
+    </p>
+
+    <!-- ส่วนค้นหาและรายการโปรเจกต์ -->
+    <section id="projects" class="page">
+      <h1>หาเพื่อนทำ Project</h1>
+      <p class="intro">
+        เลือกโปรเจกต์ที่สนใจ แล้วเข้าร่วมทีมที่กำลังมองหาทักษะ
+      </p>
+
+      <div class="search-box">
+        <label for="search">ค้นหาโปรเจกต์</label>
+        <input
+          id="search"
+          type="search"
+          placeholder="เช่น เว็บไซต์, ออกแบบ UI, JavaScript"
+        >
+      </div>
+
+      <p id="project-count" class="muted" aria-live="polite"></p>
+      <div id="project-list" class="project-grid"></div>
+    </section>
+
+    <!-- แบบฟอร์มสร้างประกาศ -->
+    <section id="create" class="page" hidden>
+      <h1>สร้างประกาศหาเพื่อนร่วม Project</h1>
+      <p class="intro">บอกเพื่อนๆ ว่าทีมของคุณต้องการอะไร</p>
+
+      <form id="project-form" class="panel form-layout">
+        <label for="project-title">ชื่อโปรเจกต์</label>
+        <input id="project-title" required maxlength="80"
+               placeholder="เช่น เว็บจองห้องอ่านหนังสือ">
+
+        <label for="project-subject">รายวิชา</label>
+        <input id="project-subject" required maxlength="60"
+               placeholder="เช่น การพัฒนาเว็บเบื้องต้น">
+
+        <label for="project-description">รายละเอียด</label>
+        <textarea id="project-description" required maxlength="1500"
+                  rows="5" placeholder="อธิบายแนวคิดและงานที่อยากทำ"></textarea>
+
+        <details class="skill-picker"><summary id="project-skills-summary">ทักษะที่ต้องการ</summary><div id="project-skills" role="group" aria-label="ทักษะที่ต้องการ" class="skill-options"></div></details>
+
+        <label for="project-slots">จำนวนคนที่ต้องการเพิ่ม</label>
+        <input id="project-slots" type="number"
+               min="1" max="20" value="2" required>
+
+        <button type="submit" class="primary">เผยแพร่ประกาศ</button>
+      </form>
+    </section>
+
+    <!-- รายการคำขอของผู้ใช้ -->
+    <section id="requests" class="page" hidden>
+      <h1>คำขอของฉัน</h1>
+      <p class="intro">รายการโปรเจกต์ที่คุณส่งคำขอเข้าร่วม</p>
+      <div id="request-list"></div>
+    </section>
+
+    <section id="manage" class="page" hidden>
+      <h1>Admin</h1>
+      <button type="button" id="demo-request" class="secondary">เพิ่มผู้สมัครตัวอย่างให้ประกาศของฉัน</button>
+      <div id="manage-list"></div>
+    </section>
+    <!-- แบบฟอร์มโปรไฟล์ -->
+    <section id="profile" class="page" hidden>
+      <h1>โปรไฟล์ของฉัน</h1>
+      <p class="intro">แนะนำตัวเพื่อให้เพื่อนรู้จักคุณมากขึ้น</p>
+
+      <form id="profile-form" class="panel form-layout">
+        <label for="profile-name">ชื่อที่แสดง</label>
+        <input id="profile-name" required maxlength="60"
+               placeholder="ชื่อหรือชื่อเล่น">
+
+        <label for="profile-year">ชั้นปี</label>
+        <select id="profile-year">
+          <option value="1">ปี 1</option>
+          <option value="2">ปี 2</option>
+          <option value="3">ปี 3</option>
+          <option value="4">ปี 4</option>
+        </select>
+
+        <details class="skill-picker"><summary id="profile-skills-summary">ทักษะของคุณ</summary><div id="profile-skills" role="group" aria-label="ทักษะของคุณ" class="skill-options"></div></details>
+
+        <label for="profile-bio">แนะนำตัว</label>
+        <textarea id="profile-bio" rows="4" maxlength="500"
+                  placeholder="ความสนใจหรือสิ่งที่อยากฝึก"></textarea>
+
+        <p class="muted">ข้อมูลติดต่อจะแสดงในหน้าทีมหลังตอบรับสมาชิก กรอกอย่างน้อยหนึ่งช่องเพื่อทดลอง</p><label for="profile-facebook">Facebook</label><input id="profile-facebook" maxlength="150" type="text">
+        <label for="profile-instagram">Instagram</label><input id="profile-instagram" maxlength="150" type="text">
+        <label for="profile-phone">เบอร์โทร</label><input id="profile-phone" maxlength="150" type="tel">
+        <button type="submit" class="primary">บันทึกโปรไฟล์</button>
+      </form>
+    </section>
+
+    <!-- แสดงผลหลังทำ เช่น บันทึกสำเร็จ -->
+    <p id="notice" role="status" aria-live="polite"></p>
+  </main>
+
+  <!-- dialog คือหน้าต่างรายละเอียดที่เปิดทับหน้าเดิม -->
+  <dialog id="detail-dialog" aria-labelledby="detail-title">
+    <div class="dialog-header">
+      <h2 id="detail-title"></h2>
+      <button type="button" id="close-dialog" class="secondary">
+        ปิด
+      </button>
+    </div>
+
+    <p id="detail-meta" class="muted"></p>
+    <p id="detail-description" class="description"></p>
+    <div id="detail-skills" class="tags"></div>
+    <p id="detail-slots"></p>
+
+    <form id="join-form" class="form-layout">
+      <label for="join-message">ข้อความถึงเจ้าของทีม</label>
+      <textarea id="join-message" rows="3" required maxlength="500"
+                placeholder="แนะนำตัวและบอกว่าสนใจช่วยงานส่วนไหน"></textarea>
+      <button id="join-button" type="submit" class="primary">
+        ส่งคำขอเข้าร่วม
+      </button>
+    </form>
+
+    <p id="join-hint" class="muted"></p>
+  </dialog>
+
+  <footer class="container footer">
+    มา 5 อย่าถาม 6 
+  </footer>
+</body>
+</html>
